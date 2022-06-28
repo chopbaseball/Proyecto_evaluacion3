@@ -1,0 +1,35 @@
+/* The side navigation menu */
+.sidebar {
+   position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: azure;
+    transition: 0.5s;
+    z-index: 999;
+    
+}
+
+/* Sidebar links */
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+    background-color: rgb(196, 106, 4);
+    color: white;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.textolateral{
+    margin: 10px;
+    font-size: large;
+}

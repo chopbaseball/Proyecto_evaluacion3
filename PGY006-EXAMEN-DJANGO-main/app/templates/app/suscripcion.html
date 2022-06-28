@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% block contenido %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-secondary text-center rounded p-4">
+                <div style="text-align: center;">
+                    <div class="texto-planes">
+                      <h6 style="color: rgb(180, 151, 50);">Por solo $2.500 al mes</h6>
+                      <h2 style="color: white;">Suscripción</h2>
+                      <p style="color: white;">Esta fundación es sin fines de lucro, sin embargo, nos puedes apoyar con una suscripción por tan solo
+                      $2.500 CLP al mes, con esta suscripción tendras un 5% de descuento en todos nuestros productos.</p>
+                      <form action="" method="post">
+                        {% csrf_token %}
+                        {% for aux in usuario %}
+                        {% if aux.nombre == user.get_username %}
+                        {% if "No" in aux.estado %}
+                          <input type="hidden" name="username" id="username" value="{{user.username}}">
+                          <input type="hidden" name="boolean" id="boolean" value="Si">
+                          <button class="btn btn-outline-primary btn-lg" type="submit">Suscribirse</button>
+                        {% else %}
+                          <input type="hidden" name="username" id="username" value="{{user.username}}">
+                          <input type="hidden" name="boolean" id="boolean" value="No">
+                          <button class="btn btn-outline-primary btn-lg" type="submit">Eliminar Suscripción</button>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                      </form>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

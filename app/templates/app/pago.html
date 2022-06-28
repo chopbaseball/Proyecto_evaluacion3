@@ -1,0 +1,32 @@
+{% extends 'app/base1.html' %}
+{% load static %}    
+
+
+    {% block contenido %}
+    
+    <div class="">
+      <div class="container">
+          <div  style="text-align: center;"><img src="{% static 'app/img/check.png' %}" alt=""></div>
+          <div style="text-align: center; font-style: oblique;"><h2>¡Pago Recibido Correctamente!</h2></div>
+          
+          <div style="text-align: center;  margin-top: 30px;"><h5>Tu compra ya a sido confirmada</h4></div>
+          <div style="text-align: center;  margin-top: 30px;"><h4>Recibiras tu pedido en un plazo maximo de 48hrs.</h3></div>
+          <div style="text-align: center;  margin-top: 30px; "><h5>Para mas informacion de click a 'Seguimiento'</h4></div>
+        <div style="text-align: center;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <a href="{% url 'seguimiento' %}" class="btn" style="width: 300px; border-radius: 10px; background-color: black;  margin-top: 50px; font-size: medium; color: white;"> Ir a Seguimiento</a>
+                </div>
+                <div class="col-sm-6">
+                    <a href="{% url 'index' %}" class="btn" style="width: 300px; border-radius: 10px; background-color: black;  margin-top: 50px; font-size: medium; color: white;"> Seguir Comprando</a>
+                </div>
+            </div>
+        </div>
+            
+      </div>
+  </div>
+  
+      
+       
+    
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'app/base2.html' %}
+{% load static %}
+{% load humanize %}
+    {% block contenido %}
+    
+
+    <div class="row" style=" margin-top: 20px;">
+
+        <div style="text-align: center; padding: 10px;"><h3>Bienvenido : {{user.get_username}}</h3></div>
+        
+        <div class="col-sm-12" style="margin-top: 20px; background-color: rgb(228, 205, 116);  border-radius: 20px; margin: 15px;">
+            <div style="text-align: center; padding: 10px;"><h3>Historial de compra</h3></div>
+            
+        {% for aux in ListaHistorial %}
+            {% if aux.usuario == user.get_username %}
+                <div class="two columns u-pull-right">
+                    <ul>
+                        
+                        <h4>Codigo Pedido : {{ aux.orden }}</h4>
+
+                        
+
+                            <div id="carrito" class="table-responsive">
+                                <table class="u-full-width text-start align-middle table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Imagen</th>
+                                            <th>Nombre</th>
+                                            <th>Precio</th>
+                                            <th>Cantidad</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                    {% for i in ListaCarrito %}
+                                    {% if i.usuario_hist == user.get_username %}
+                                    {% if i.oorden == aux.orden %}
+                                    <tr>
+                                        <td> <img src="{{ i.imagen_hist.url }}"  alt="" width="150"> </td>
+                                        <td>{{ i.nombre_his }}</td>
+                                        <td>$ {{ i.precio_hist }} </td>
+                                        <th>{{ i.cantidad_hist }}</th>
+                                        
+                                    </tr>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    </tbody>
+                                    
+                                </table>
+                                
+                            </div>
+                            
+                    </ul>
+                </div>
+            {%endif%}
+        {%endfor%}
+        </div>
+    </div>
+    {% endblock %}
+        

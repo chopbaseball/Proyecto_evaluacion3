@@ -1,0 +1,43 @@
+{% extends 'app/base2.html' %}
+{% load static %}
+    
+    {% block contenido %}
+
+
+
+        <div>
+            <div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    
+                    <input type="hidden" name="codigo" id="codigo" value="1">
+                    
+                    <input type="submit" value="Suscripcion" onclick="pago()" style="cursor: pointer;" class="btn btn-success btn-sm ml-auto">
+                </form>
+            </div>
+            <div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    
+                    <input type="hidden" name="codigo" id="codigo" value="2">
+                    
+                    <input type="submit" value="Desuscripcion" onclick="pago()" style="cursor: pointer;" class="btn btn-danger btn-sm ml-auto">
+                </form>
+            </div>
+        </div>
+        
+        <div>
+            {% for aux in suscrip %}
+            <h5>
+                {% if aux.estado == 1 %}
+                    ESTADO : SUSCRITO
+                {% else %}
+                    ESTADO : NO SUSCRITO
+                {% endif %}
+            </h5>
+            {% endfor %}
+        </div>
+
+    
+    
+  {% endblock %}

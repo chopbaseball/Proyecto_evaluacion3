@@ -1,0 +1,173 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% block contenido %}
+<section>
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="fw-normal mb-0 text-black">Historial de compras</h3>
+        </div>
+
+        {% for aux in listaHistorial %}
+        {% if aux.usuario == user.get_username %}
+        <div class="card rounded-3 mb-4">
+          <div class="card-body p-4">
+            <div class="row">
+              <h4 style="color: #455A64;">Orden #{{aux.orden}}</h4>
+              <h4 style="color: #455A64;">Productos Comprados:</h4>
+
+                {% for saux in listaCarrito%}
+                {% if saux.usuario == user.get_username %}
+                {% if saux.codigoorden == aux.orden %}
+                <div class="col-sm-12 col-xl-2">
+                  <div class="bg-secondary text-center rounded p-4">
+                    <h6 class="mb-0">{{saux.nombre}}</h6>
+                    <img src="{{saux.imagen.url}}" alt="" class="img-thumbnail" width="100" height="100">
+                    <h6 class="mb-0">Precio: {{saux.precio|intcomma}}</h6>
+                    <h6 class="mb-0">Cantidad: {{saux.cantidad|intcomma}}</h6>
+                  </div>
+                </div>
+
+
+                {%endif%}
+                {% endif %}
+                {% endfor %}
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal-{{aux.id}}"><i
+              class="fa fa-truck"></i> Seguimiento </button>
+
+          <div class="modal fade" id="myModal-{{aux.id}}">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <h4 class="modal-title" style="color: black;">Seguimiento para: {{aux.nombre}}</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!--aca ta el body xd-->
+                <div class="modal-body">
+                  <section style="background-color: #8c9eff;">
+                    <div class="container py-5 h-100">
+                      <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12">
+                          <div class="card card-stepper text-black" style="border-radius: 16px;">
+
+                            <div class="card-body p-5">
+
+                              <div class="d-flex justify-content-between align-items-center mb-5">
+                                <div>
+                                  <h4 class="text-primary font-weight-bold">ORDEN #{{aux.orden}}</h4>
+                                  </h5>
+                                </div>
+                              </div>
+                              <div class="d-flex justify-content-center mb-3">
+                                {% if "Orden procesada" in aux.estado.estado %}
+                                <i class="fas fa-clipboard-list fa-5x me-lg-4 mb-5 mb-lg-0 d-flex"></i>
+                                <div>
+                                  <h5 class="fw-bold mb-1 mt-2" style="color: #455A64;">Orden</h5>
+                                  <h5 class="fw-bold mb-0 mt-2" style="color: #455A64;">Procesada</h5>
+                                </div>
+                                {% elif "Orden enviada" in aux.estado.estado %}
+                                <i class="fas fa-box-open fa-5x me-lg-4 mb-3 mb-lg-0"></i>
+                                <div>
+                                  <h5 class="fw-bold mb-1 mt-2" style="color: #455A64;">Orden</h5>
+                                  <h5 class="fw-bold mb-0 mt-2" style="color: #455A64;">enviada</h5>
+                                </div>
+                                {% elif "Orden en ruta" in aux.estado.estado %}
+                                <i class="fas fa-shipping-fast fa-5x me-lg-4 mb-3 mb-lg-0"></i>
+                                <div>
+                                  <h5 class="fw-bold mb-1 mt-2" style="color: #455A64;">Orden</h5>
+                                  <h5 class="fw-bold mb-0 mt-2" style="color: #455A64;">en ruta</h5>
+                                </div>
+                                {% else %}
+                                <i class="fas fa-home fa-5x me-lg-4 mb-3 mb-lg-0"></i>
+                                <div>
+                                  <h5 class="fw-bold mb-1 mt-2" style="color: #455A64;">Orden</h5>
+                                  <h5 class="fw-bold mb-0 mt-2" style="color: #455A64;">Completada</h5>
+                                </div>
+                                {% endif %}
+                              </div>
+                              <ul id="progressbar-2"
+                                class="d-flex justify-content-between mx-0 mt-0 mb-5 px-0 pt-0 pb-2">
+                                {% if "Orden procesada" in aux.estado.estado %}
+                                <li class="step0 active text-center" id="step1"></li>
+                                <li class="step0 text-center" id="step2"></li>
+                                <li class="step0 text-center" id="step3"></li>
+                                <li class="step0 text-center" id="step4"></li>
+                                {% elif "Orden enviada" in aux.estado.estado %}
+                                <li class="step0 active text-center" id="step1"></li>
+                                <li class="step0 active text-center" id="step2"></li>
+                                <li class="step0 text-center" id="step3"></li>
+                                <li class="step0 text-center" id="step4"></li>
+                                {% elif "Orden en ruta" in aux.estado.estado %}
+                                <li class="step0 active text-center" id="step1"></li>
+                                <li class="step0 active text-center" id="step2"></li>
+                                <li class="step0 active text-center" id="step3"></li>
+                                <li class="step0 text-center" id="step4"></li>
+                                {% else %}
+                                <li class="step0 active text-center" id="step1"></li>
+                                <li class="step0 active text-center" id="step2"></li>
+                                <li class="step0 active text-center" id="step3"></li>
+                                <li class="step0 active text-center" id="step4"></li>
+                                {% endif %}
+                              </ul>
+
+                              <div class="d-flex justify-content-between">
+                                <div class="d-lg-flex align-items-center">
+                                  <i class="fas fa-clipboard-list fa-3x me-lg-4 mb-3 mb-lg-0"></i>
+                                  <div>
+                                    <p class="fw-bold mb-1">Orden</p>
+                                    <p class="fw-bold mb-0">Procesada</p>
+                                  </div>
+                                </div>
+                                <div class="d-lg-flex align-items-center">
+                                  <i class="fas fa-box-open fa-3x me-lg-4 mb-3 mb-lg-0"></i>
+                                  <div>
+                                    <p class="fw-bold mb-1">Orden</p>
+                                    <p class="fw-bold mb-0">Enviada</p>
+                                  </div>
+                                </div>
+                                <div class="d-lg-flex align-items-center">
+                                  <i class="fas fa-shipping-fast fa-3x me-lg-4 mb-3 mb-lg-0"></i>
+                                  <div>
+                                    <p class="fw-bold mb-1">Orden</p>
+                                    <p class="fw-bold mb-0">En Ruta</p>
+                                  </div>
+                                </div>
+                                <div class="d-lg-flex align-items-center">
+                                  <i class="fas fa-home fa-3x me-lg-4 mb-3 mb-lg-0"></i>
+                                  <div>
+                                    <p class="fw-bold mb-1">Orden</p>
+                                    <p class="fw-bold mb-0">Completada</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        {%endif%}
+        {%endfor%}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

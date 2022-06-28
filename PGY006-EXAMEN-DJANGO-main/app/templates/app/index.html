@@ -1,0 +1,37 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% block contenido %}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <h4 class="text-center">Productos Disponibles</h4>
+        {%for aux in listaProductos%}
+        <div class="col-sm-12 col-xl-3">
+            <div class="bg-secondary text-center rounded p-4">
+                <h6 class="mb-0">{{aux.nombre}}</h6>
+                <img src="{{aux.imagen.url}}" alt="" class="img-thumbnail" width="200" height="200">
+                {% if user.is_authenticated %}
+                    {% if aux.stock >= 1 %}
+                    <h6 class="mb-0">Precio: {{aux.precio|intcomma}}</h6>
+                    <h6 class="mb-0">Stock: {{aux.stock|intcomma}}</h6>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="txtNombre" value="{{ aux.nombre }}">
+                            <input type="hidden" name="txtCodigo" value="{{ aux.codigo }}">
+                            <input type="hidden" name="txtUsuario" value="{{ user.get_username }}">
+                            <input type="hidden" name="txtPrecio" value="{{ aux.precio }}">
+                            <input type="hidden" name="txtImagen" value="{{ aux.imagen }}">
+                            <input name="txtStock" min="1" max="{{aux.stock}}" name="quantity" value="1" type="number"/>
+                            <input class="btn btn-outline-primary btn-lg" type="submit" value="Agregar al Carrito">
+                        </form>
+                    {% else %}
+                        <h3>Producto sin stock</h3>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
+{% endblock %}

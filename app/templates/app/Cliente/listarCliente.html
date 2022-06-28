@@ -1,0 +1,40 @@
+{% extends 'app/base1.html' %}
+{% load static %}
+
+{% block contenido %}
+<h2 style="text-align: center;">Listar Clientes</h2>
+<table class="table table-condensed table-striped ">
+    <thead>  
+        <tr>
+            <th>CODIGO</th>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>RUT</th>
+            <th>CORREO</th>
+            <th>NUMERO</th>
+            <th>DIRECCION</th>
+            <th>COMUNA</th>
+            <th>OPCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+     {% for aux in listarCliente %}
+         <tr>
+             <td>{{ aux.codigo }}</td>
+             <td>{{ aux.nombre }}</td>
+             <td>{{ aux.apellido }}</td>
+             <td>{{ aux.rut }}</td>
+             <td>{{ aux.correo }}</td>
+             <td>{{ aux.numero }}</td>
+             <td>{{ aux.direccion }}</td>
+             <td>{{ aux.codigoComuna }}</td>
+             <td>
+                 <a href="{% url 'modificarCliente' aux.codigo %}" class="btn btn-info">Modificar</a>
+                 <a onclick="eliminarCliente({{aux.codigo}})" class="btn btn-danger">Eliminar</a>
+             </td>
+         </tr>
+     {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

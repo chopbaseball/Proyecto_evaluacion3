@@ -1,0 +1,35 @@
+{% extends 'app/base1.html' %}
+{% load static %}
+
+{% block contenido %}
+<h2 style="text-align: center;">Seguimientos</h2>
+<table class="table table-condensed table-striped ">
+    <thead>  
+        <tr>
+            <th>CODIGO</th>
+            <th>CODIGOPRODUCTO</th>
+            <th>ESTADO</th>
+            <th>NOMBRE</th>
+            <th>PRECIO</th>
+            <th>CANTIDAD</th>
+            <th>OPCIONES</th
+        </tr>
+    </thead>
+    <tbody>
+     {% for aux in datos %}
+         <tr>
+             <td>{{ aux.codigo }}</td>
+             <td>{{ aux.codigoProducto}}</td>
+             <td>{{ aux.estado }}</td>
+             <td>{{ aux.nombre }}</td>
+             <td>{{ aux.precio }}</td>
+             <td>{{ aux.cantidad }}</td>
+             <td>
+                 <a href="{% url 'modificarEstado' aux.codigo %}" class="btn btn-info">Modificar</a>
+             </td>
+         </tr>
+     {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

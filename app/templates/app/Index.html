@@ -1,0 +1,81 @@
+{% extends 'app/base1.html' %}
+{% load static %}
+
+
+{% block contenido %}
+    <table >
+  
+      <tr>
+        <td  >
+          {% if user.is_authenticated %}
+          <div class="containerr">
+            <img src="{% static 'app/img/doggie.jpg' %}" alt="Avatar" class="image">
+            <div class="overlay">
+             <a class="text" href="{% url 'perro' %}">PERROS</a>
+            </div>
+         </div>
+                    
+          {% else %}
+          <div class="containerr">
+            <img src="{% static 'app/img/doggie.jpg' %}" alt="Avatar" class="image">
+            <div class="overlay">
+              <a class="text" href="{% url 'login' %}">Inicie Sesion </a>
+            </div>
+          </div>
+          {% endif %}
+          
+        </td>
+        <td ><H3>PRODUCTOS PARA PERRO</H3></td>
+      </tr>
+      <tr>
+        <td>
+          <h3>PRODUCTOS PARA GATOS </h3>
+        </td>
+        <td>
+          {% if user.is_authenticated %}
+          <div class="containerr ">
+            <img src="{% static 'app/img/gato.jpg' %}" alt="Avatar" class="image">
+            <div class="overlay">
+            <a class="text" href="{% url 'gato' %}">GATOS</a>
+          </div>>
+                    
+          {% else %}
+          <div class="containerr ">
+            <img src="{% static 'app/img/gato.jpg' %}" alt="Avatar" class="image">
+            <div class="overlay">
+            <a class="text" href="{% url 'login' %}">Inicie Sesion </a>
+          </div>
+          {% endif %}
+          
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% if user.is_authenticated %}
+          <div class="containerr">
+            <img src="{% static 'app/img/eeee.jpg' %}" alt="Avatar" class="image">
+            <div class="overlay">
+              <a class="text" href="{% url 'otro' %}">OTROS</a>
+            </div>
+          </div>
+                    
+          {% else %}
+          <div class="containerr">
+            <img src="{% static 'app/img/eeee.jpg' %}" alt="Avatar" class="image">
+            <div class="overlay">
+              <a class="text" href="{% url 'login' %}">Inicie Sesion </a>
+            </div>
+          </div>
+          {% endif %}
+          
+       </td>
+        <td>
+          <h3>OTROS PRODUCTOS</h3>
+        </td>
+      </tr>
+      
+    </table>
+
+    
+
+{% endblock %}

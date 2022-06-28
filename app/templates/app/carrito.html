@@ -1,0 +1,81 @@
+{% extends 'app/base2.html' %}
+{% load static %}
+{% load humanize %}
+    {% block contenido %}
+
+      <div class="col-25 mt-4">
+        <h3 style="text-align: center; padding: 20px;">Carrito de Compras</h3>
+        
+        <div class="two columns u-pull-right">
+          <ul>
+              
+                  <div id="carrito" class="table-responsive">
+                      <table class="u-full-width text-start align-middle table-bordered table-hover">
+                          <thead>
+                              <tr>
+                                  <th>Imagen</th>
+                                  <th>Nombre</th>
+                                  <th>Precio</th>
+                                  <th>Cantidad</th>
+                                  <th>Eliminar</th>
+                              </tr>
+                          </thead>
+                          
+                          <tbody>
+                            {% for aux in ListaCarrito %}
+                            {% if aux.usuario == user.get_username %}
+                            <tr>
+                              <td> <img src="{{ aux.imagen_producto.url }}"  alt="" width="100"> </td>
+                              <td>{{ aux.nombre_producto }}</td>
+                              <td>${{ aux.precio_producto }}</td>
+                              <th>{{ aux.cantidad }}</th>
+                              <td><a href="{% url 'eliminarProducto' aux.codigo_producto %}" class="btn btn-info">Eliminar</a></td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                          </tbody>
+                          
+                      </table>
+                      
+                  </div>
+          </ul>
+        </div>
+
+        <hr>
+
+        {% for aux in suscri %}
+          {% if aux.user == user.get_username %}
+            {% if aux.estado  == 0 %}
+            
+              <p>Descuento <span class="price" style="color:black ; font-size: large;"><b>$0</b></span></p>
+              
+              <p>Monto Total <span class="price" style="color:black"><b>$ {{total|floatformat:0|intcomma}} </b></span></p>
+              <div style="text-align: center;">
+            {% else %}
+
+              <p>Descuento <span class="price" style="color:black ; font-size: large;"><b>${{desc|floatformat:0|intcomma}}</b></span></p>
+                
+              <p>Monto Total <span class="price" style="color:black"><b>$ {{totalFinal|floatformat:0|intcomma}} </b></span></p>
+              <div style="text-align: center;">
+            
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        
+        </div>
+            <form action="" method="POST">
+              {% csrf_token %}
+                <input type="submit" value="Pagar" href="{% url 'pago' %}" class="bottton" style="border: none;   padding: 12px;    color: white; 
+                background-color: #000;  
+                text-align: center; cursor: pointer; width: 100%; font-size: 18px;"  >
+                
+            </form>
+            
+        </div>
+
+      </div>
+
+      
+    
+  {% endblock %}

@@ -1,0 +1,47 @@
+{"AmorDeQuiltro": [
+    {
+      "id": 1,
+      "nombre": "Oven Baked Tradition",
+      "precio": "10000",
+      "tipo": "Perro"
+    },
+    {
+      "id": 2,
+      "nombre": "Oven Baked Tradition - Puppy",
+      "precio": "12000",
+      "tipo": "perro"
+    },
+    {
+      "id": 3,
+      "nombre": "Oven Baked Tradition - Kitten Chicken",
+      "precio": "8000",
+      "tipo": "gato"
+    },
+    {
+      "id": 4,
+      "nombre": "Oven Baked Tradition - Cat Senior",
+      "precio": "16000",
+      "tipo": "Gato"
+    },
+    {
+      "id": 5,
+      "nombre": "placas",
+      "precio": "5000",
+      "tipo": "Gato y Perro"
+    },
+    {
+      "id": 6,
+      "nombre": "Spot - Juguete Play Strong Hueso",
+      "precio": "7000",
+      "tipo": "Perro"
+    },
+    {
+      "id": 7,
+      "nombre": "Furry Ball Long Fluff Varita",
+      "precio": "4000",
+      "tipo": "Gato"
+    }
+  ]
+}
+
+

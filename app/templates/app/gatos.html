@@ -1,0 +1,54 @@
+{% extends 'app/base1.html' %}
+
+
+{% load static %}    
+
+    {% block contenido %}
+    
+    <h3 style="text-align: center;">PRODUCTOS FELINOS</h3>
+      
+
+      <div class="row">
+        {% for aux in ListaProductos %}
+
+        {% if aux.tipo.tipo_productos == 'Gato' %}
+
+        <div class="col-sm-4 mt-3" >
+          <div class="card" style="text-align: center; border-color: rgb(180, 180, 151); border-width: 3px; font-family: arial; margin: auto; max-width: 300px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;">
+          <img src="{{ aux.imagen.url }}" alt="" style="width:100%">
+          <h1 style="font-size: 30px;" >{{ aux.nombre }} </h1>
+          <p class="price" style="color: grey; font-size: 22px;">${{ aux.precio }}</p>
+          <p>{{ aux.descripcion }}</p>
+          <p>{{ aux.stock }}</p>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="nombre_producto" id="nombre_producto" value="{{ aux.nombre }}">
+            <input type="hidden" name="precio_producto" id="precio_producto" value="{{ aux.precio }}">
+            <input type="hidden" name="imagen_producto" id="imagen_producto" value="{{ aux.imagen }}">
+            <input type="hidden" name="codigo_producto" id="codigo_producto" value="{{ aux.codigo }}">
+            <input type="hidden" name="user" id="user" value="{{ user.get_username }}">
+            <input type="submit" class="dd" value="Agregar al Carrito"  style="border: none;   padding: 12px;    color: white; background-color: #000;  
+            text-align: center; cursor: pointer; width: 100%; font-size: 18px;" >
+            
+            
+              
+          </form>
+          
+
+        </div>
+        </div>
+          
+          
+        {% endif %}
+      
+      {% endfor %}
+      </div>
+       
+        
+      
+      
+      
+      
+
+{% endblock %}
